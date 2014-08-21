@@ -1,0 +1,27 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+#vs project file
+*.opensdf
+*.sdf
+*.tlog
+*.obj
+*.aps
+*.suo
+*.ncb
+*.suo
+*.sln
+*.MySCMServerInfo
+Debug
+Release
