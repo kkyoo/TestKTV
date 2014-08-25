@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "TestKTV.h"
 #include "TestKTVDlg.h"
-#include "face/AFCResource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -58,7 +57,6 @@ BOOL CTestKTVApp::InitInstance()
 
 	CString m_dir = GetModuleDir();
 
-	AFCResource::getInstance().Init(m_dir,360);
 	CTestKTVDlg dlg;
 	dlg.SetRootDir(m_dir);
 	m_pMainWnd = &dlg;

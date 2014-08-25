@@ -34,7 +34,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="KTVLibd.lib plugd.lib faced.lib libimd.lib skind.lib"
+				AdditionalDependencies="KTVLibd.lib"
 				OutputFile="..\..\bin\debug\TestKTV.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../lib;"
@@ -135,9 +135,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\ephCtrl.cpp">
-			</File>
-			<File
 				RelativePath=".\ExpensiveGiftCtrl.cpp">
 			</File>
 			<File
@@ -172,9 +169,6 @@
 			Name="Í·ÎÄ¼þ"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
-			<File
-				RelativePath=".\ephCtrl.h">
-			</File>
 			<File
 				RelativePath=".\ExpensiveGiftCtrl.h">
 			</File>

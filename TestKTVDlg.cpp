@@ -10,9 +10,6 @@
 #define new DEBUG_NEW
 #endif
 
-#define ID_TAB_WND					100					//属性页 ID
-
-#define IDC_OUTBAR				1001
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -127,31 +124,6 @@ BOOL CTestKTVDlg::OnInitDialog()
 	m_GiftSpecial->SubclassWindow(GetDlgItem(IDC_STATIC_SPECIALGIFT)->GetSafeHwnd());
 	m_GiftSpecial->SetSkinConfContext(m_pSkinConfContext);
 	m_GiftSpecial->SetWindowPos(NULL,0,130,1050,60,SWP_NOZORDER);
-
-	//建立tab控件
-	m_cTab.CreateTabWnd(this,EPHDLG_CLASSNAME,ID_TAB_WND);
-	m_cTab.ShowCopyRight(true);
-
-	outbarCtrl.CreateEx(NULL,/*WS_EX_STATICEDGE,*//*WS_EX_CLIENTEDGE,*/ NULL, NULL, WS_VISIBLE | WS_CHILD,
-		CRect(0,0,10,10), &m_cTab, IDC_OUTBAR);	
-
-
-	CBitmap bitmap,bitmap1;
-	bitmap.LoadBitmap(IDB_TABLOGO);
-	bitmap1.LoadBitmap(IDB_TABLOGO_1);
-	m_cTab.AddTabPage(&outbarCtrl,TEXT("好友管理"),&bitmap,RGB(192,192,192),false);
-
-	m_cTab.AddTabPage(&outbarCtrl,TEXT("KTV房间"),&bitmap1,RGB(192,192,192),false);
-
-	//装载插件
-	//LoadEphPlugins();					//mainly ktvplugins.Comment the statement,we can't see the ktv desktop in the list
-
-	//设置初始tab页面
-	int pos = 1;
-	m_cTab.SetActivePageByExtIndex(pos);	
-
-	m_cTab.MoveWindow(0,200,500,150);
-	m_cTab.ShowWindow(SW_SHOW);
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
 }
@@ -212,18 +184,7 @@ void CTestKTVDlg::InitStruct()
 	m_NPGuideMgr = NULL;
 	m_pSkinConfContext=NULL;
 	m_GiftSpecial=NULL;
-	m_tabImageList.Create(25,25,ILC_COLOR24|ILC_MASK,0, 8);
-
 	
-
-	m_funcImageList.Create(16, 16, ILC_COLOR24|ILC_MASK,2,2);
-
-	CBitmap bitmap;
-	bitmap.LoadBitmap(IDB_FUNCVIDEO);
-	m_funcImageList.Add(&bitmap,RGB(192,192,192));
-
-	outbarCtrl.setListener(this);
-	outbarCtrl.setImageList(&AFCResource::getInstance().getLargeImageList(), &AFCResource::getInstance().getSmallImageList(), &m_funcImageList);
 }
 void CTestKTVDlg::SetRootDir(CString strBasePath)
 {
@@ -297,109 +258,4 @@ void CTestKTVDlg::OnBnClickedBtnSpecialgift()
 	nItemNum++;
 	m_GiftSpecial->OnDisplayBroadCastItem(sInfo,1);
 	//m_GiftSpecial->Write(sInfo);
-}
-void CTestKTVDlg::LoadEphPlugins()
-{
-
-	// 初始化插件 [7/27/2003 15:58 肖猛]
-	EphBase::SetEphInstance(this);
-
-#ifdef _DEBUG
-	CString tmp = GetRootDir() + "plugins\\ded";
-#else
-	CString tmp = GetRootDir() + "plugins\\ed";
-#endif
-
-	//BOOL bLoadAllPlugs = AfxGetApp()->GetProfileInt("", "bAllPlug", 0);
-
-	char buf[20] = {0};
-	strcpy(buf, "*.dll");
-	CString dir;
-
-	CFileFind finder;
-	dir.Format("%s%s", tmp, buf);
-	BOOL cont = finder.FindFile(dir);
-
-	int count=0;
-	while (cont) 
-	{
-		cont = finder.FindNextFile();			
-		HINSTANCE module = AfxLoadLibrary(finder.GetFilePath());
-		TRACE("load library : %s \n", finder.GetFilePath());
-		if (!module)
-		{
-#ifdef _DEBUG
-			LPVOID lpMsgBuf;
-			FormatMessage( 
-				FORMAT_MESSAGE_ALLOCATE_BUFFER | 
-				FORMAT_MESSAGE_FROM_SYSTEM | 
-				FORMAT_MESSAGE_IGNORE_INSERTS,
-				NULL,
-				GetLastError(),
-				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-				(LPTSTR) &lpMsgBuf,
-				0,
-				NULL 
-				);
-			tmp.Format("[%s]%s",finder.GetFilePath(),(LPCTSTR)lpMsgBuf);
-			MessageBox(tmp, "Error", MB_OK | MB_ICONINFORMATION );
-			LocalFree( lpMsgBuf );
-#endif
-			continue;
-		}			
-
-
-		GetPlugin getPlugin = (GetPlugin) GetProcAddress(module, "getPlugin");
-
-
-		if (!getPlugin)
-		{
-			FreeLibrary(module);
-			{	
-				continue;
-			}
-		}
-		EphPlugin* pPplugin = getPlugin();								
-
-
-		//pPplugin->Destroy();
-
-		pPplugin->SetModulHandle(module);
-		pPplugin->Init();
-		m_plugins.Add(pPplugin);
-	}
-	finder.Close();
-}
-
-void CTestKTVDlg::AddTab(char* pstrName,char* pstrToolTip,CBitmap *pbmImage,COLORREF crMask,CWnd *pWnd, WORD width, WORD height)
-{
-	if(pbmImage)
-		m_tabImageList.Add(pbmImage,crMask);
-	else
-	{
-		CBitmap bit;
-		bit.LoadBitmap(IDB_PLGUICON);
-		m_tabImageList.Add(&bit,RGB(255,255,255));
-	}
-	//CImageList* plist = m_tabCtrl.SetImageList(&m_tabImageList);
-	//!!!从插件传递过来的pbmImage位图，背景色都变成RGB(0,0,0)？？？
-	if (!m_cTab.AddTabPage(pWnd, pstrName,pbmImage,RGB(0,0,0),false))	
-	{
-		TRACE1("Failed to add %s.\n",pstrName);
-		return;
-	}
-}
-
-void CTestKTVDlg::itemDragged(int item, int toFolder)
-{
-	
-	
-}
-void CTestKTVDlg::itemClicked(int item)
-{
-	CRect clientrc;
-	GetWindowRect(clientrc);
-
-	CPoint pt;
-	::GetCursorPos(&pt);
 }
