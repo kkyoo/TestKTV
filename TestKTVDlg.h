@@ -5,6 +5,7 @@
 #include "IKtvLib.h"
 #include "ExpensiveGiftCtrl.h"
 #include "SkinConfContext.h"
+#include "afxwin.h"
 
 // CTestKTVDlg 对话框
 class CTestKTVDlg : public CDialog
@@ -35,6 +36,8 @@ public:
 	CString GetRootDir();
 	void SetRootDir(CString strBasePath);
 
+	void UpdateUseList();
+
 // 实现
 protected:
 	HICON m_hIcon;
@@ -49,4 +52,8 @@ public:
 	afx_msg void OnBnClickedBtnPhoto();
 	afx_msg void OnDestroy();
 	afx_msg void OnBnClickedBtnSpecialgift();
+	CComboBox m_cmbUser;
+	CEdit m_editUse;
+	afx_msg void OnBnClickedBtnAddUse();
+	afx_msg void OnBnClickedBtnDelUse();
 };

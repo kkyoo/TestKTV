@@ -5,6 +5,8 @@
 #include "TestKTV.h"
 #include "TestKTVDlg.h"
 #include ".\testktvdlg.h"
+#include "icqconfig.h"
+#include "icqtypes.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -56,6 +58,8 @@ CTestKTVDlg::CTestKTVDlg(CWnd* pParent /*=NULL*/)
 void CTestKTVDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO_UINLIST, m_cmbUser);
+	DDX_Control(pDX, IDC_EDIT_USE, m_editUse);
 }
 
 BEGIN_MESSAGE_MAP(CTestKTVDlg, CDialog)
@@ -66,6 +70,8 @@ BEGIN_MESSAGE_MAP(CTestKTVDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_PHOTO, OnBnClickedBtnPhoto)
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(IDC_BTN_SPECIALGIFT, OnBnClickedBtnSpecialgift)
+	ON_BN_CLICKED(IDC_BTN_ADD_USE, OnBnClickedBtnAddUse)
+	ON_BN_CLICKED(IDC_BTN_DEL_USE, OnBnClickedBtnDelUse)
 END_MESSAGE_MAP()
 
 
@@ -124,6 +130,13 @@ BOOL CTestKTVDlg::OnInitDialog()
 	m_GiftSpecial->SubclassWindow(GetDlgItem(IDC_STATIC_SPECIALGIFT)->GetSafeHwnd());
 	m_GiftSpecial->SetSkinConfContext(m_pSkinConfContext);
 	m_GiftSpecial->SetWindowPos(NULL,0,130,1050,60,SWP_NOZORDER);
+
+
+	m_cmbUser.LimitText(31);
+	CString dir = GetRootDir() + "aguiConfig\\";
+	IcqConfig::setDir(dir);
+
+	UpdateUseList();
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
 }
@@ -176,6 +189,46 @@ HCURSOR CTestKTVDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CTestKTVDlg::UpdateUseList()
+{
+	m_cmbUser.ResetContent();
+	UseList l;
+	IcqConfig::getAllUsers(l);
+	if (l.size() <= 0)
+	{
+		m_cmbUser.SetWindowText(_T("请输入登陆ID"));
+	}
+	else 
+	{
+		UseList::iterator it;
+		for (it = l.begin(); it != l.end(); ++it)
+		{
+			CString str;
+			str.Format("%s", (*it).strUin.c_str());
+			m_cmbUser.AddString(str);
+		}
+		m_cmbUser.SetCurSel(0);
+	}
+
+	/*m_cmbUser.ResetContent();
+	UinList l;
+	IcqConfig::getAllUsers(l);
+	if (l.size() <= 0)
+	{
+		m_cmbUser.SetWindowText(_T("请输入登陆ID"));
+	}
+	else 
+	{
+		UinList::iterator it;
+		for (it = l.begin(); it != l.end(); ++it)
+		{
+			CString str;
+			str.Format("%lu", *it);
+			m_cmbUser.AddString(str);
+		}
+		m_cmbUser.SetCurSel(0);
+	}*/
+}
 
 void CTestKTVDlg::InitStruct()
 {
@@ -258,4 +311,41 @@ void CTestKTVDlg::OnBnClickedBtnSpecialgift()
 	nItemNum++;
 	m_GiftSpecial->OnDisplayBroadCastItem(sInfo,1);
 	//m_GiftSpecial->Write(sInfo);
+}
+void CTestKTVDlg::OnBnClickedBtnAddUse()
+{
+	CString strUse ="";
+	m_editUse.GetWindowText(strUse);
+
+	/*uint32 uin = atoi(strUse);
+	if (uin>0)
+	{
+		IcqConfig::addUser(uin);
+		UpdateUseList();
+	}*/
+
+	if(strUse.Compare("")!=0)
+	{
+		IcqConfig::addUser(strUse);
+		UpdateUseList();
+	}
+}
+
+void CTestKTVDlg::OnBnClickedBtnDelUse()
+{
+	CString strUse ="";
+	m_editUse.GetWindowText(strUse);
+
+	/*uint32 uin = atoi(strUse);
+	if (uin>0)
+	{
+		IcqConfig::delUser(uin);
+		UpdateUseList();
+	}*/
+
+	if(strUse.Compare("")!=0)
+	{
+		IcqConfig::delUser(strUse);
+		UpdateUseList();
+	}
 }
