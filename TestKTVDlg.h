@@ -6,6 +6,8 @@
 #include "ExpensiveGiftCtrl.h"
 #include "SkinConfContext.h"
 #include "afxwin.h"
+#include "resource.h"
+#include "ListGiftDlg.h"
 
 // CTestKTVDlg ¶Ô»°¿ò
 class CTestKTVDlg : public CDialog
@@ -27,6 +29,8 @@ private:
 
 	CExpensiveGiftCtrl*   m_GiftSpecial;
 	CSkinConfContext *   m_pSkinConfContext;
+
+	CListGiftDlg         m_listGiftDlg;
 
 
 private:
@@ -56,4 +60,5 @@ public:
 	CEdit m_editUse;
 	afx_msg void OnBnClickedBtnAddUse();
 	afx_msg void OnBnClickedBtnDelUse();
+	afx_msg void OnBnClickedBtnListgift();
 };

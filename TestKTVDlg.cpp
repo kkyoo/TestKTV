@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "TestKTV.h"
 #include "TestKTVDlg.h"
 #include ".\testktvdlg.h"
 #include "icqconfig.h"
@@ -72,6 +71,7 @@ BEGIN_MESSAGE_MAP(CTestKTVDlg, CDialog)
 	ON_BN_CLICKED(IDC_BTN_SPECIALGIFT, OnBnClickedBtnSpecialgift)
 	ON_BN_CLICKED(IDC_BTN_ADD_USE, OnBnClickedBtnAddUse)
 	ON_BN_CLICKED(IDC_BTN_DEL_USE, OnBnClickedBtnDelUse)
+	ON_BN_CLICKED(IDC_BTN_LISTGIFT, OnBnClickedBtnListgift)
 END_MESSAGE_MAP()
 
 
@@ -129,7 +129,7 @@ BOOL CTestKTVDlg::OnInitDialog()
 	m_GiftSpecial=new CExpensiveGiftCtrl;
 	m_GiftSpecial->SubclassWindow(GetDlgItem(IDC_STATIC_SPECIALGIFT)->GetSafeHwnd());
 	m_GiftSpecial->SetSkinConfContext(m_pSkinConfContext);
-	m_GiftSpecial->SetWindowPos(NULL,0,130,1050,60,SWP_NOZORDER);
+	m_GiftSpecial->SetWindowPos(NULL,0,130,650,60,SWP_NOZORDER);
 
 
 	m_cmbUser.LimitText(31);
@@ -137,6 +137,8 @@ BOOL CTestKTVDlg::OnInitDialog()
 	IcqConfig::setDir(dir);
 
 	UpdateUseList();
+
+	
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
 }
@@ -348,4 +350,21 @@ void CTestKTVDlg::OnBnClickedBtnDelUse()
 		IcqConfig::delUser(strUse);
 		UpdateUseList();
 	}
+}
+
+void CTestKTVDlg::OnBnClickedBtnListgift()
+{
+	if(!m_listGiftDlg.GetSafeHwnd())
+	{
+		m_listGiftDlg.Create(IDD_DLG_GIFTLIST,this);
+		CRect rtClient,rtListGift;
+		GetClientRect(&rtClient);
+		rtListGift.right = rtClient.right-20;
+		rtListGift.top = rtClient.top+20;
+		rtListGift.bottom = rtListGift.top+250;
+		rtListGift.left = rtListGift.right-235;
+		m_listGiftDlg.MoveWindow(&rtListGift);
+	}
+	m_listGiftDlg.LoadGiftImg();
+	m_listGiftDlg.ShowWindow(SW_SHOWNA);
 }

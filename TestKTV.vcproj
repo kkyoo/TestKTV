@@ -138,7 +138,13 @@
 				RelativePath=".\ExpensiveGiftCtrl.cpp">
 			</File>
 			<File
+				RelativePath=".\GiftListCtrl.cpp">
+			</File>
+			<File
 				RelativePath=".\icqconfig.cpp">
+			</File>
+			<File
+				RelativePath=".\ListGiftDlg.cpp">
 			</File>
 			<File
 				RelativePath=".\PictureExEx.cpp">
@@ -163,9 +169,21 @@
 			</File>
 			<File
 				RelativePath=".\TestKTV.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\TestKTVDlg.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -176,6 +194,9 @@
 				RelativePath=".\ExpensiveGiftCtrl.h">
 			</File>
 			<File
+				RelativePath=".\GiftListCtrl.h">
+			</File>
+			<File
 				RelativePath=".\icqconfig.h">
 			</File>
 			<File
@@ -183,6 +204,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\ktvlib\IKtvLib.h">
+			</File>
+			<File
+				RelativePath=".\ListGiftDlg.h">
 			</File>
 			<File
 				RelativePath=".\PictureExEx.h">
@@ -227,6 +251,52 @@
 			</File>
 			<File
 				RelativePath=".\res\TestKTV.rc2">
+			</File>
+		</Filter>
+		<Filter
+			Name="tinyxml"
+			Filter="">
+			<File
+				RelativePath="..\..\public\tinyxml\tinystr.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\public\tinyxml\tinystr.h">
+			</File>
+			<File
+				RelativePath="..\..\public\tinyxml\tinyxml.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\public\tinyxml\tinyxml.h">
+			</File>
+			<File
+				RelativePath="..\..\public\tinyxml\tinyxmlerror.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\public\tinyxml\tinyxmlparser.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<File
