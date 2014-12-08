@@ -356,20 +356,19 @@ void CTestKTVDlg::OnBnClickedBtnListgift()
 {
 	DWORD startTime = GetTickCount();
 
-	if(!m_listGiftDlg.GetSafeHwnd())
+	if(!m_GiftsDlg.GetSafeHwnd())
 	{
-		m_listGiftDlg.Create(IDD_DLG_GIFTLIST,this);
+		m_GiftsDlg.Create(IDD_GIFTS_DIALOG,this);
 		CRect rtClient,rtListGift;
 		GetClientRect(&rtClient);
 		rtListGift.right = rtClient.right-20;
 		rtListGift.top = rtClient.top+20;
-		rtListGift.bottom = rtListGift.top+250;
-		rtListGift.left = rtListGift.right-235;
-		m_listGiftDlg.MoveWindow(&rtListGift);
-		m_listGiftDlg.StartLoadGiftThread();
+		rtListGift.bottom = rtListGift.top+300;
+		rtListGift.left = rtListGift.right-280;
+		m_GiftsDlg.MoveWindow(&rtListGift);
 	}
-	//m_listGiftDlg.LoadGiftImg();
-	m_listGiftDlg.ShowWindow(SW_SHOWNA);
+	m_GiftsDlg.StartFirstLoadThread();
+	m_GiftsDlg.ShowWindow(SW_SHOWNA);
 
 	DWORD endTime = GetTickCount();
 	DWORD lastTime = endTime - startTime;

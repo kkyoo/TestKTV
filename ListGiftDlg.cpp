@@ -20,6 +20,7 @@ CListGiftDlg::CListGiftDlg(CWnd* pParent /*=NULL*/)
 	m_bHasLoadGiftImg = false;
 	m_LoadGiftThread = NULL;
 	m_LoadGiftThreadId=1;
+	m_strLoadElementName="";
 }
 
 CListGiftDlg::~CListGiftDlg()
@@ -153,6 +154,11 @@ pGiftData CListGiftDlg::GetGiftDataByItem(int nItem)
 	return NULL;
 }
 
+void CListGiftDlg::SetLoadElementName(CString strElementName)
+{
+	m_strLoadElementName = strElementName;
+}
+
 bool CListGiftDlg::ParseDynamicGiftTypeAndId(CString strFileName,UINT& uType,int& uId)
 {
 	//¸ñÊ½£ºflash002005
@@ -183,13 +189,28 @@ LRESULT CListGiftDlg::OnUpdateToolTipText(WPARAM wParam,LPARAM lParam)
 	if(m_listGiftCtrl.GetSafeHwnd() == ListHwnd)
 	{
 		pGiftData info = GetGiftDataByItem(nItem);
-		if(info)
+		if(info && GetParent() && GetParent()->GetSafeHwnd())
 		{
-			CString strMsg="";
+			ToolTipTextData* pTTTData = new ToolTipTextData;
+
+			pTTTData->nID = info->nID;
+			pTTTData->strGoodName = info->strName.c_str(); 
+			pTTTData->strGoodPath = info->imgPath.c_str();
+			pTTTData->nGoodValue = info->nValue;
+			pTTTData->strGoodToolTip = info->strToolTip.c_str();
+			CRect rt;
+			m_listGiftCtrl.GetItemRect(nItem,rt,LVIR_BOUNDS);
+			m_listGiftCtrl.ClientToScreen(rt);
+			pTTTData->rtItem = rt;
+
+			::SendMessage(GetParent()->GetSafeHwnd(),WM_UPDATETOOLTIPTEXT,(WPARAM)pTTTData,NULL);
+			//CopyRect
+
+			/*CString strMsg="";
 			strMsg.Format("nID=%u,nType=%u,strName=%s,strToolTip=%s,nValue=%u,nWidth=%u,nHeight=%u,nIsDynamicGift=%u,nIsShowEffect=%u,nIsSpecialGift=%u,nIsFire=%u,nIsDoll=%u,nIsProp=%u",\
 				info->nID,info->nType,info->strName.c_str(),info->strToolTip.c_str(),info->nValue,info->nWidth,info->nHeight,\
 				info->nIsDynamicGift,info->nIsShowEffect,info->nIsSpecialGift,info->nIsFire,info->nIsDoll,info->nIsProp);
-			MessageBox(strMsg);
+			MessageBox(strMsg);*/
 		}
 	}
 	
@@ -324,6 +345,9 @@ void CListGiftDlg::AddGift(GiftData configGiftData)
 
 bool CListGiftDlg::LoadGiftImg()
 {
+	if(m_strLoadElementName.Compare("")==0)
+		return false;
+
 	if(m_bHasLoadGiftImg)
 		return false;
 
@@ -372,7 +396,7 @@ bool CListGiftDlg::LoadGiftImg()
 		const char* val9 = NULL;
 		const char* val10 = NULL;
 
-		const TiXmlElement* sub = root->FirstChildElement( "firstload" ); 
+		const TiXmlElement* sub = root->FirstChildElement(m_strLoadElementName); 
 		
 		if (sub)
 		{

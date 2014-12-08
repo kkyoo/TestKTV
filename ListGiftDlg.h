@@ -29,6 +29,25 @@ typedef struct tagGiftData
 	}
 }GiftData, *pGiftData;
 
+struct ToolTipTextData
+{
+	int     nID;
+	CString strGoodName;
+	CString strGoodPath;
+	CString strGoodToolTip;
+	UINT    nGoodValue;
+	CRect   rtItem;
+
+	ToolTipTextData()
+	{
+		nID=0;
+		strGoodName="";
+		strGoodPath="";
+		strGoodToolTip = "";
+		nGoodValue=0;
+	}
+};
+
 // CListGiftDlg 对话框
 
 class CListGiftDlg : public CDialog
@@ -47,6 +66,7 @@ private:
 	CImageList				m_imgListGift;	// 礼物图片列表
 	bool                    m_bHasLoadGiftImg;
 	GiftData				m_curSelGift;
+	CString                 m_strLoadElementName;
 
 	HANDLE m_LoadGiftThread;
 	DWORD  m_LoadGiftThreadId;
@@ -62,6 +82,7 @@ public:
 	pGiftData GetGiftDataByGoodId(int goodid);
 	pGiftData GetGiftDataByItem(int nItem);
 	void StartLoadGiftThread();  //多线程加载礼物
+	void SetLoadElementName(CString strElementName);
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持

@@ -7,7 +7,7 @@
 #include "SkinConfContext.h"
 #include "afxwin.h"
 #include "resource.h"
-#include "ListGiftDlg.h"
+#include "GiftsDialog.h"
 
 // CTestKTVDlg ¶Ô»°¿ò
 class CTestKTVDlg : public CDialog
@@ -30,7 +30,8 @@ private:
 	CExpensiveGiftCtrl*   m_GiftSpecial;
 	CSkinConfContext *   m_pSkinConfContext;
 
-	CListGiftDlg         m_listGiftDlg;
+	//CListGiftDlg         m_listGiftDlg;
+	CGiftsDialog         m_GiftsDlg;
 
 
 private:

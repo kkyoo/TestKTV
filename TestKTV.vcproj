@@ -135,16 +135,28 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\ColorStatic.cpp">
+			</File>
+			<File
 				RelativePath=".\ExpensiveGiftCtrl.cpp">
 			</File>
 			<File
 				RelativePath=".\GiftListCtrl.cpp">
 			</File>
 			<File
+				RelativePath=".\GiftsDialog.cpp">
+			</File>
+			<File
+				RelativePath=".\GiftToolTipDlg.cpp">
+			</File>
+			<File
 				RelativePath=".\icqconfig.cpp">
 			</File>
 			<File
 				RelativePath=".\ListGiftDlg.cpp">
+			</File>
+			<File
+				RelativePath=".\PictureEx.cpp">
 			</File>
 			<File
 				RelativePath=".\PictureExEx.cpp">
@@ -191,10 +203,19 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath=".\ColorStatic.h">
+			</File>
+			<File
 				RelativePath=".\ExpensiveGiftCtrl.h">
 			</File>
 			<File
 				RelativePath=".\GiftListCtrl.h">
+			</File>
+			<File
+				RelativePath=".\GiftsDialog.h">
+			</File>
+			<File
+				RelativePath=".\GiftToolTipDlg.h">
 			</File>
 			<File
 				RelativePath=".\icqconfig.h">
@@ -207,6 +228,9 @@
 			</File>
 			<File
 				RelativePath=".\ListGiftDlg.h">
+			</File>
+			<File
+				RelativePath=".\PictureEx.h">
 			</File>
 			<File
 				RelativePath=".\PictureExEx.h">

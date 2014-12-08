@@ -13,6 +13,8 @@
 #define IDB_BITMAP1                     132
 #define IDB_FUNCVIDEO                   132
 #define IDD_DLG_GIFTLIST                133
+#define IDD_GIFTS_DIALOG                134
+#define IDD_DLG_GIFT_TOOLTIP            135
 #define IDC_BUTTON1                     1000
 #define IDC_BTN_PHOTO                   1000
 #define IDC_STATIC_SPECIALGIFT          1001
@@ -23,14 +25,21 @@
 #define IDC_EDIT1                       1006
 #define IDC_EDIT_USE                    1006
 #define IDC_LIST_GIFT                   1007
-#define IDC_BUTTON2                     1008
 #define IDC_BTN_LISTGIFT                1008
+#define IDC_CMB_COUNT                   1098
+#define IDC_STATIC_DESC                 1166
+#define IDC_STATIC_GIFTNAME             1222
+#define IDC_STATIC_GIFT_VALUE           1223
+#define IDC_STATIC_COULD_BUY            1224
+#define IDC_STATIC_GIF                  1226
+#define IDC_TAB1                        10787
+#define IDC_STATIC_GIFTCOUNT            10795
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        134
+#define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1009
 #define _APS_NEXT_SYMED_VALUE           101
