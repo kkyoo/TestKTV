@@ -43,14 +43,25 @@ public:
 	enum { IDD = IDD_DLG_GIFTLIST };
 
 private:
-	CGiftListCtrl			m_listGift;
-	CImageList				m_imglstGift;	// 礼物图片列表
+	CGiftListCtrl			m_listGiftCtrl;
+	CImageList				m_imgListGift;	// 礼物图片列表
 	bool                    m_bHasLoadGiftImg;
 	GiftData				m_curSelGift;
+
+	HANDLE m_LoadGiftThread;
+	DWORD  m_LoadGiftThreadId;
 
 private:
 	bool ParseDynamicGiftTypeAndId(CString strFileName,UINT& uType,int& uId);
 	void AddGift(GiftData configGiftData);
+	static DWORD WINAPI LoadGiftThreadCB(LPVOID lpParam);
+
+public:
+	bool LoadGiftImg();           //加载礼物
+	void ClearAllList();
+	pGiftData GetGiftDataByGoodId(int goodid);
+	pGiftData GetGiftDataByItem(int nItem);
+	void StartLoadGiftThread();  //多线程加载礼物
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
@@ -58,13 +69,12 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	virtual afx_msg LRESULT OnLoadGiftImgComplete(WPARAM wParam,LPARAM lParam);
+	virtual afx_msg LRESULT OnUpdateToolTipText(WPARAM wParam,LPARAM lParam);
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnNMClickListGift(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMDblclkListGift(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnDestroy();
 
-public:
-	bool LoadGiftImg();
-	void ClearAllList();
 };

@@ -354,6 +354,8 @@ void CTestKTVDlg::OnBnClickedBtnDelUse()
 
 void CTestKTVDlg::OnBnClickedBtnListgift()
 {
+	DWORD startTime = GetTickCount();
+
 	if(!m_listGiftDlg.GetSafeHwnd())
 	{
 		m_listGiftDlg.Create(IDD_DLG_GIFTLIST,this);
@@ -364,7 +366,14 @@ void CTestKTVDlg::OnBnClickedBtnListgift()
 		rtListGift.bottom = rtListGift.top+250;
 		rtListGift.left = rtListGift.right-235;
 		m_listGiftDlg.MoveWindow(&rtListGift);
+		m_listGiftDlg.StartLoadGiftThread();
 	}
-	m_listGiftDlg.LoadGiftImg();
+	//m_listGiftDlg.LoadGiftImg();
 	m_listGiftDlg.ShowWindow(SW_SHOWNA);
+
+	DWORD endTime = GetTickCount();
+	DWORD lastTime = endTime - startTime;
+	CString strMsg = "";
+	strMsg.Format("%u",lastTime);
+	MessageBox(strMsg);
 }
