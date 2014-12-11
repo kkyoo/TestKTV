@@ -34,7 +34,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="KTVLibd.lib"
+				AdditionalDependencies="KTVLibd.lib AGuiSocketd.lib"
 				OutputFile="..\..\bin\debug\TestKTV.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../lib;"
@@ -90,7 +90,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="KTVLib.lib"
+				AdditionalDependencies="KTVLib.lib AGuiSocket.lib"
 				OutputFile="..\..\bin\release\TestKTV.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../lib;"
@@ -148,6 +148,9 @@
 			</File>
 			<File
 				RelativePath=".\GiftToolTipDlg.cpp">
+			</File>
+			<File
+				RelativePath="..\..\include\IAGuiSocketCore.h">
 			</File>
 			<File
 				RelativePath=".\icqconfig.cpp">

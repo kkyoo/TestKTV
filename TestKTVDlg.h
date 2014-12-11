@@ -8,9 +8,10 @@
 #include "afxwin.h"
 #include "resource.h"
 #include "GiftsDialog.h"
+#include "IAGuiSocketCore.h"
 
 // CTestKTVDlg 对话框
-class CTestKTVDlg : public CDialog
+class CTestKTVDlg : public CDialog,public IAGuiSocketCoreListen
 {
 // 构造
 public:

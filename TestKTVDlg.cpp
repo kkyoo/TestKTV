@@ -139,6 +139,7 @@ BOOL CTestKTVDlg::OnInitDialog()
 	UpdateUseList();
 
 	
+	GetAGuiSocketCore()->open("127.0.0.1",8009,10000);
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
 }
