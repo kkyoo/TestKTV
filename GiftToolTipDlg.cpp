@@ -106,6 +106,7 @@ void CGiftToolTipDlg::UpdateGiftToopTip(int goodid,UINT goodValue,CString strVal
 				posX=rcWnd.right-190;
 			SetWindowPos(NULL,posX,posY,0,0,SWP_NOSIZE|SWP_NOZORDER);
 			ShowWindow(SW_SHOWNA);
+			Invalidate();
 			KillTimer(ID_TIMER_HIDE_DLG);
 			SetTimer(ID_TIMER_HIDE_DLG,100,NULL);
 			m_bTimeOn = true;
@@ -135,27 +136,10 @@ void CGiftToolTipDlg::OnTimer(UINT nIDEvent)
 void CGiftToolTipDlg::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
-	/*if(m_gifDrawer && m_curGoodId>0)
-	{
-		m_gifDrawer->Destroy();
-		CRect rc;
-		GetClientRect(rc);
-		rc.left = 0;
-		rc.right = rc.left + 80;
-		rc.top = 0;
-		rc.bottom = 58;
-		m_gifDrawer->DrawGifImage(m_curGoodId,rc);
-	}*/
 }
 
 void CGiftToolTipDlg::OnDestroy()
 {
-	/*if(m_gifDrawer)
-	{
-		m_gifDrawer->Destroy();
-		delete m_gifDrawer;
-		m_gifDrawer=NULL;
-	}*/
 	m_staticGiftName.UnsubclassWindow();
 	m_staticGiftValue.UnsubclassWindow();
 	m_staticCouldBuy.UnsubclassWindow();
