@@ -6,6 +6,7 @@
 #include ".\testktvdlg.h"
 #include "icqconfig.h"
 #include "icqtypes.h"
+#include "DataPacket.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -139,7 +140,34 @@ BOOL CTestKTVDlg::OnInitDialog()
 	UpdateUseList();
 
 	
-	GetAGuiSocketCore()->open("127.0.0.1",8009,10000);
+	//GetAGuiSocketCore()->open("127.0.0.1",8009,10000);
+
+	COutDataPacket* out = new COutDataPacket;
+	uint32 nUin=10000;
+	uint32 nFlag=100;
+	CString strNick = "hello world";
+	string strFlag = "成功";
+	*out << nFlag << strFlag << nUin << strNick;
+
+	CInDataPacket* in = CDataPacketTrans::OutToIn(out);
+
+	uint32 nRcvUin=0;
+	uint32 nRcvFlag=0;
+	string strRcvNick = "";
+	CString strRcvFlag = "";
+
+	CString strDebug="";
+
+	*in >> nRcvFlag >> strRcvFlag >> nRcvUin >> strRcvNick;
+	strDebug.Format("nRcvFlag=%u,strRcvFlag=%s,nRcvUin=%u,strRcvNick=%s",nRcvFlag,strRcvFlag,nRcvUin,strRcvNick.c_str());
+	MessageBox(strDebug);
+
+	delete out;
+	out=NULL;
+
+	delete in;
+	in=NULL;
+
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
 }
