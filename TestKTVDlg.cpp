@@ -139,7 +139,7 @@ BOOL CTestKTVDlg::OnInitDialog()
 	UpdateUseList();
 
 	
-	GetAGuiSocketCore()->open("127.0.0.1",8009,10000);
+	GetAGuiSocketCore()->open("127.0.0.1",80,10000);
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
 }
@@ -293,6 +293,8 @@ void CTestKTVDlg::OnDestroy()
 		m_GiftSpecial=NULL;
 	}
 	
+	GetAGuiSocketCore()->Release();
+
 	CDialog::OnDestroy();
 }
 
