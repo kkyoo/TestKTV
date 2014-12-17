@@ -138,15 +138,35 @@ CString CAGuiCode::DES_ENCODE(CString strText,CString strKey)
 	if(!strText || strText.Compare("")==0 || strText.GetLength()<1)
 		return "" ;
 
-	char buf[255] ;
-	char key[255];
-	strcpy(buf, (LPSTR)(LPCTSTR)strText); 
-	strcpy(key, (LPSTR)(LPCTSTR)strKey); 
-	long datalen = strText.GetLength();
-	int keylen = strKey.GetLength();
-	DoDES(buf,buf,datalen,key,keylen,ENCRYPT);
+	char buf[MAX_DATA_LENGTH];
+	char key[MAX_KEY_LENGTH];
+	
+	memset(buf, 0, sizeof(buf));
+	memset(key, 0, sizeof(key)); 
+	strcpy(buf, strText.GetString()); 
+	strcpy(key, strKey.GetString()); 
+	DoDES(buf,buf,sizeof(buf),key, sizeof(key),ENCRYPT);
 	CString strRes="";
-	strRes.Format("%s",buf);
+	strRes.Format(_T("%s"),buf);
+
+	return strRes;
+}
+
+CString CAGuiCode::DES_DECODE(CString strText,CString strKey)
+{
+	if(!strText || strText.Compare("")==0 || strText.GetLength()<1)
+		return "" ;
+
+	char buf[MAX_DATA_LENGTH];
+	char key[MAX_KEY_LENGTH];
+	
+	memset(buf, 0, sizeof(buf));
+	memset(key, 0, sizeof(key)); 
+	strcpy(buf, strText.GetString()); 
+	strcpy(key, strKey.GetString()); 
+	DoDES(buf,buf,sizeof(buf),key, sizeof(key),DECRYPT);
+	CString strRes="";
+	strRes.Format(_T("%s"),buf);
 	return strRes;
 }
 

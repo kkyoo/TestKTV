@@ -104,6 +104,9 @@ static char Tmp[256], deskey[16];
 #define ENCRYPT 0 //加密参数
 #define DECRYPT 1 //解密参数
 
+#define MAX_DATA_LENGTH  1024
+#define MAX_KEY_LENGTH   256
+
 class CAGuiCode
 {
 public:
@@ -124,5 +127,8 @@ private:
 
 public:
 	bool DoDES(char *Out, char *In, long datalen, const char *Key, int keylen, bool Type);
+	//DES加密
 	CString DES_ENCODE(CString strText,CString strKey);
+	//DES解密
+	CString DES_DECODE(CString strText,CString strKey);
 };

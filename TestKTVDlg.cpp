@@ -189,10 +189,20 @@ BOOL CTestKTVDlg::OnInitDialog()
 	//strDebug.Format("解密后的字符串: %s",buf);
 	//MessageBox(strDebug);
 
-	CString strText,strKey,strRes;
-	strText="abcdefghjjk";
-	strKey="123456";
-	codeUtil.DES_ENCODE(strText,strKey);
+	CString strText,strKey,strRes="";
+	strText="";
+	strKey="12345678";
+	for(int i=1;i<MAX_DATA_LENGTH;i++)
+	{
+		CString strTemmm="";
+		strTemmm.Format("%d",i%2);
+		strText+=strTemmm;
+	}
+
+	strRes=codeUtil.DES_ENCODE(strText,strKey);
+	MessageBox(strRes);
+
+	strRes=codeUtil.DES_DECODE(strRes,strKey);
 	MessageBox(strRes);
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
