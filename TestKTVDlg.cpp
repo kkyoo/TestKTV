@@ -7,6 +7,7 @@
 #include "icqconfig.h"
 #include "icqtypes.h"
 #include "DataPacket.h"
+#include "AGuiCode.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -168,6 +169,31 @@ BOOL CTestKTVDlg::OnInitDialog()
 	delete in;
 	in=NULL;
 
+
+	CAGuiCode codeUtil;
+	//char key[255] = "sdfsa"; //密钥
+	//char buf[255]; //缓冲数组
+	//char str[255] ="whg123456"; //要加密的字符串
+
+	//memset(buf, 0, sizeof(buf)); //设置缓冲区为一个指定的字符
+	//strcpy(buf, str); 
+	//strDebug.Format("加密前的字符串: %s",buf);
+	//MessageBox(strDebug);
+	//
+
+	//codeUtil.DoDES(buf, buf, sizeof(buf), key, sizeof(key), ENCRYPT); 
+	//strDebug.Format("加密后的字符串: %s",buf);
+	//MessageBox(strDebug);
+	//
+	//codeUtil.DoDES(buf, buf, sizeof(buf), key, sizeof(key), DECRYPT); 
+	//strDebug.Format("解密后的字符串: %s",buf);
+	//MessageBox(strDebug);
+
+	CString strText,strKey,strRes;
+	strText="abcdefghjjk";
+	strKey="123456";
+	codeUtil.DES_ENCODE(strText,strKey);
+	MessageBox(strRes);
 	
 	return TRUE;  // 除非设置了控件的焦点，否则返回 TRUE
 }
