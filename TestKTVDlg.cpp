@@ -6,8 +6,10 @@
 #include ".\testktvdlg.h"
 #include "icqconfig.h"
 #include "icqtypes.h"
-#include "DataPacket.h"
 #include "AGuiCode.h"
+#include "AguiLib/AGuiLib.h"
+#include "AguiLib/DataPacket.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -191,7 +193,7 @@ BOOL CTestKTVDlg::OnInitDialog()
 
 	CString strText,strKey,strRes="";
 	strText="";
-	strKey="12345678";
+	strKey="sdf5568fsdfsdfd";
 	for(int i=1;i<MAX_DATA_LENGTH;i++)
 	{
 		CString strTemmm="";

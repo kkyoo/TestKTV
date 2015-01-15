@@ -141,9 +141,6 @@
 				RelativePath=".\ColorStatic.cpp">
 			</File>
 			<File
-				RelativePath=".\DataPacket.cpp">
-			</File>
-			<File
 				RelativePath=".\ExpensiveGiftCtrl.cpp">
 			</File>
 			<File
@@ -216,9 +213,6 @@
 			</File>
 			<File
 				RelativePath=".\ColorStatic.h">
-			</File>
-			<File
-				RelativePath=".\DataPacket.h">
 			</File>
 			<File
 				RelativePath=".\ExpensiveGiftCtrl.h">
