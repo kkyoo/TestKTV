@@ -138,9 +138,6 @@
 				RelativePath=".\AGuiCode.cpp">
 			</File>
 			<File
-				RelativePath=".\ColorStatic.cpp">
-			</File>
-			<File
 				RelativePath=".\ExpensiveGiftCtrl.cpp">
 			</File>
 			<File
@@ -210,9 +207,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
 				RelativePath=".\AGuiCode.h">
-			</File>
-			<File
-				RelativePath=".\ColorStatic.h">
 			</File>
 			<File
 				RelativePath=".\ExpensiveGiftCtrl.h">

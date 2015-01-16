@@ -8,7 +8,7 @@
 #include "icqtypes.h"
 #include "AGuiCode.h"
 #include "AguiLib/AGuiLib.h"
-#include "AguiLib/DataPacket.h"
+#include "AguiLib/PacketData.h"
 
 
 #ifdef _DEBUG
@@ -145,14 +145,14 @@ BOOL CTestKTVDlg::OnInitDialog()
 	
 	GetAGuiSocketCore()->open("127.0.0.1",80,10000);
 
-	COutDataPacket* out = new COutDataPacket;
+	CPacketDataOut* out = new CPacketDataOut;
 	uint32 nUin=10000;
 	uint32 nFlag=100;
 	CString strNick = "hello world";
 	string strFlag = "³É¹¦";
 	*out << nFlag << strFlag << nUin << strNick;
 
-	CInDataPacket* in = CDataPacketTrans::OutToIn(out);
+	CPacketDataIn* in = CDataPacketTrans::OutToIn(out);
 
 	uint32 nRcvUin=0;
 	uint32 nRcvFlag=0;

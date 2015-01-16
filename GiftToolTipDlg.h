@@ -1,8 +1,8 @@
 #pragma once
 #include "resource.h"
-#include "ColorStatic.h"
+//#include "ColorStatic.h"
 #include "PictureEx.h"
-
+#include "AguiLib/IStaticColor.h"
 
 
 class CGiftToolTipDlg : public CDialog
@@ -18,10 +18,10 @@ public:
 	enum { IDD = IDD_DLG_GIFT_TOOLTIP };
 
 private:
-	CColorStatic	m_staticGiftName;
-	CColorStatic	m_staticGiftValue;
-	CColorStatic	m_staticCouldBuy;
-	CColorStatic    m_staticDesc;
+	IStaticColor*	m_staticGiftName;
+	IStaticColor*	m_staticGiftValue;
+	IStaticColor*	m_staticCouldBuy;
+	IStaticColor*    m_staticDesc;
 
 	int             m_curGoodId;
 	bool            m_bTimeOn;

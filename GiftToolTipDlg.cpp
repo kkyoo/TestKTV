@@ -15,6 +15,11 @@ CGiftToolTipDlg::CGiftToolTipDlg(CWnd* pParent /*=NULL*/)
 	m_bTimeOn = false;
 	m_ptLast = CPoint(0,0);
 	m_curItemRect = CRect(0,0,0,0);
+
+	m_staticGiftName = NULL;
+	m_staticGiftValue = NULL;
+	m_staticCouldBuy = NULL;
+	m_staticDesc = NULL;
 }
 
 CGiftToolTipDlg::~CGiftToolTipDlg()
@@ -43,17 +48,23 @@ BOOL CGiftToolTipDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_staticGiftName.SubclassDlgItem(IDC_STATIC_GIFTNAME,this);
-	m_staticGiftValue.SubclassDlgItem(IDC_STATIC_GIFT_VALUE,this);
-	m_staticCouldBuy.SubclassDlgItem(IDC_STATIC_COULD_BUY,this);
-	m_staticDesc.SubclassDlgItem(IDC_STATIC_DESC,this);
-	m_staticDesc.SetTextColor(RGB(255,100,3));
-	m_staticDesc.SetTextAlient(ALIAN_CENTER);
-	m_staticDesc.SetWindowText("");
-	m_staticDesc.SetVCenter(TRUE);
-	m_staticGiftValue.SetTextColor(RGB(0,0,0));
-	m_staticGiftName.SetTextColor(RGB(0,0,0));
-	m_staticCouldBuy.SetTextColor(RGB(255,100,3));
+	m_staticGiftName = StaticMgr::CreateStaticColor();
+	m_staticGiftValue = StaticMgr::CreateStaticColor();
+	m_staticCouldBuy = StaticMgr::CreateStaticColor();
+	m_staticDesc = StaticMgr::CreateStaticColor();
+
+	m_staticGiftName->SubclassDlgItem(IDC_STATIC_GIFTNAME,this);
+	m_staticGiftValue->SubclassDlgItem(IDC_STATIC_GIFT_VALUE,this);
+	m_staticCouldBuy->SubclassDlgItem(IDC_STATIC_COULD_BUY,this);
+	m_staticDesc->SubclassDlgItem(IDC_STATIC_DESC,this);
+
+	m_staticDesc->SetTextColor(RGB(255,100,3));
+	m_staticDesc->SetTextAlient(ALIAN_CENTER);
+	m_staticDesc->SetWindowText("");
+	m_staticDesc->SetVCenter(TRUE);
+	m_staticGiftValue->SetTextColor(RGB(0,0,0));
+	m_staticGiftName->SetTextColor(RGB(0,0,0));
+	m_staticCouldBuy->SetTextColor(RGB(255,100,3));
 
 	return TRUE; 
 }
@@ -76,21 +87,33 @@ void CGiftToolTipDlg::UpdateGiftToopTip(int goodid,UINT goodValue,CString strVal
 		m_PicGif.Draw();
 
 		CString str;
-		str.Format("名称:%s",strGoodName);
-		m_staticGiftName.SetWindowText(str);
 
-		str.Format("价格:%u%s",goodValue,strValue);
-		m_staticGiftValue.SetWindowText(str);
-
-		if(couldBuy)
+		if(m_staticGiftName)
 		{
-			int num = 100000/goodValue;//CKTVDlg::getInstance().m_nMyMoney/goodValue;
-			str.Format("够买%d个",num);
+			str.Format("名称:%s",strGoodName);
+			m_staticGiftName->SetWindowText(str);
 		}
-		else
-			str="买不起";
-		m_staticCouldBuy.SetWindowText(str);
-		m_staticDesc.SetWindowText(desc);
+		
+		if(m_staticGiftValue)
+		{
+			str.Format("价格:%u%s",goodValue,strValue);
+			m_staticGiftValue->SetWindowText(str);
+		}
+		
+		if(m_staticCouldBuy)
+		{
+			if(couldBuy)
+			{
+				int num = 100000/goodValue;//CKTVDlg::getInstance().m_nMyMoney/goodValue;
+				str.Format("够买%d个",num);
+			}
+			else
+				str="买不起";
+			m_staticCouldBuy->SetWindowText(str);
+		}
+
+		if(m_staticDesc)
+			m_staticDesc->SetWindowText(desc);
 
 		CPoint pt;
 		GetCursorPos(&pt);
@@ -140,11 +163,36 @@ void CGiftToolTipDlg::OnPaint()
 
 void CGiftToolTipDlg::OnDestroy()
 {
-	m_staticGiftName.UnsubclassWindow();
-	m_staticGiftValue.UnsubclassWindow();
-	m_staticCouldBuy.UnsubclassWindow();
-	m_staticDesc.UnsubclassWindow();
+	m_staticGiftName->UnsubclassWindow();
+	m_staticGiftValue->UnsubclassWindow();
+	m_staticCouldBuy->UnsubclassWindow();
+	m_staticDesc->UnsubclassWindow();
 
+	if(m_staticGiftName)
+	{
+		delete m_staticGiftName;
+		m_staticGiftName = NULL;
+	}
+
+	if(m_staticGiftName)
+	{
+		delete m_staticGiftValue;
+		m_staticGiftValue = NULL;
+
+	}
+
+	if(m_staticGiftName)
+	{
+		delete m_staticCouldBuy;
+		m_staticCouldBuy = NULL;
+	}
+
+	if(m_staticGiftName)
+	{
+		delete m_staticDesc;
+		m_staticDesc = NULL;
+	}
+	
 	CDialog::OnDestroy();
 }
 
